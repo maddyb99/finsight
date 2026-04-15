@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>FinSight — Multi-Agent Financial Anomaly Detection</title>
+<style>
+ body{font-family:system-ui,Segoe UI,Arial;max-width:820px;margin:40px auto;padding:0 16px;color:#111}
+ h1{margin-bottom:4px} .sub{color:#666;margin-top:0}
+ button{background:#003662;color:#fff;border:0;padding:10px 18px;border-radius:6px;cursor:pointer}
+ pre{background:#f5f5f5;padding:14px;border-radius:6px;white-space:pre-wrap;overflow:auto}
+ .card{border:1px solid #e3e3e3;border-radius:8px;padding:16px;margin:14px 0}
+ .tag{display:inline-block;background:#eef;border-radius:4px;padding:2px 8px;font-size:12px;margin-right:6px}
+</style></head><body>
+<h1>FinSight</h1>
+<p class="sub">Multi-agent pipeline (LangGraph): ML anomaly detection → driver analysis → LLM commentary.</p>
+<div class="card">
+  <form id="f">
+    <p><input type="file" name="file" accept=".csv"> <small>(optional — leave empty to run synthetic finance data)</small></p>
+    <button type="submit">Run analysis</button>
+  </form>
+</div>
+<div id="out"></div>
+<script>
+document.getElementById('f').onsubmit = async (e)=>{
+};
+</script>
+</body></html>
