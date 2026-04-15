@@ -12,6 +12,7 @@ def analyze():
         f = request.files.get("file")
         csv_df = load_csv(f if f and f.filename else None)
         print(csv_df)
+        return jsonify(data=csv_df.to_dict(orient="records"))
     except Exception as exc:  # noqa: BLE001
         return jsonify(error=str(exc)), 400
 

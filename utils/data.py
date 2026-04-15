@@ -6,6 +6,7 @@ def load_csv(file_storage=None) -> pd.DataFrame:
         expected = {"period", "category", "value"}
         if not expected.issubset(tidy.columns):
             raise ValueError(f"CSV must have columns {expected}, got {set(tidy.columns)}")
+        print(tidy)
         return tidy
     else:
         raise ValueError("No file provided")

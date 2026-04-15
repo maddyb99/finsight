@@ -19,6 +19,10 @@
 <div id="out"></div>
 <script>
 document.getElementById('f').onsubmit = async (e)=>{
+  e.preventDefault();
+  document.getElementById('out').innerHTML = '<p>Running agents…</p>';
+  const fd = new FormData(e.target);
+  const r = await fetch('/analyze',{method:'POST',body:fd});
 };
 </script>
 </body></html>
