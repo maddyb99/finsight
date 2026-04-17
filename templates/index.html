@@ -9,7 +9,7 @@
  .tag{display:inline-block;background:#eef;border-radius:4px;padding:2px 8px;font-size:12px;margin-right:6px}
 </style></head><body>
 <h1>FinSight</h1>
-<p class="sub">Multi-agent pipeline (LangGraph): ML anomaly detection → driver analysis → LLM commentary.</p>
+<p class="sub">Multi-agent pipeline (LangGraph): ML anomaly detection → driver analysis → LLM summary.</p>
 <div class="card">
   <form id="f">
     <p><input type="file" name="file" accept=".csv"> <small>(optional — leave empty to run synthetic finance data)</small></p>
@@ -23,6 +23,19 @@ document.getElementById('f').onsubmit = async (e)=>{
   document.getElementById('out').innerHTML = '<p>Running agents…</p>';
   const fd = new FormData(e.target);
   const r = await fetch('/analyze',{method:'POST',body:fd});
+  const j = await r.json();
+  if(j.error){document.getElementById('out').innerHTML='<pre>'+j.error+'</pre>';return;}
+  let h = '<div class="card"><h3>Executive summary</h3><pre>'+j.summary+'</pre></div>';
+  h += '<div class="card"><h3>Detected anomalies ('+j.findings.n_anomalies+')</h3>';
+  j.findings.anomalies.forEach(a=>{
+     h+='<p><b>'+a.period+'</b> — value '+a.value+' ('+a.pct_change+'% vs prior) '
+       +a.flagged_by.map(x=>'<span class=tag>'+x+'</span>').join('');
+     if(a.drivers&&a.drivers.length){h+='<br><small>Top driver: '+a.drivers[0].category
+       +' ('+a.drivers[0].delta+')</small>';}
+     h+='</p>';
+  });
+  h+='</div>';
+  document.getElementById('out').innerHTML = h;
 };
 </script>
 </body></html>
